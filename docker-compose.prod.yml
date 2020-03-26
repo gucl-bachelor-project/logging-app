@@ -1,0 +1,13 @@
+version: "2.1"
+
+services:
+  log-app:
+    image: ${LOGGING_APP_REPO_URL}
+    ports:
+      - 8080:8080
+    environment:
+      - NODE_ENV=production
+
+  mongodb:
+    volumes:
+      - ${MONGODB_FILES_PATH}:/data/db
