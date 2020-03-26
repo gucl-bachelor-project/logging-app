@@ -1,0 +1,26 @@
+version: "2.1"
+
+volumes:
+  nodemodules:
+    external: true
+
+services:
+  log-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    expose:
+      - 8080
+    ports:
+      - 9090:8080
+    working_dir: /app
+    command: bash -c "/wait && npm run dev"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - nodemodules:/app/node_modules
+
+  mongodb:
+    volumes:
+      - ./data/db:/data/db
