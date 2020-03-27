@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  title: Logging application REST API
+  version: 1.0.0
+servers:
+  - url: /
+paths:
+  /log/app-error:
+    get:
+      tags:
+        - logs
+      summary: Get all logged app errors
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppErrors"
+    post:
+      tags:
+        - logs
+      summary: Log single app error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppError"
+        required: true
+      responses:
+        "201":
+          description: Saved log of error
+        "400":
+          description: Invalid request payload
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Error message
+                example: Missing property 'appName'
+components:
+  schemas:
+    AppErrors:
+      type: array
+      items:
+        $ref: "#/components/schemas/AppError"
+    AppError:
+      required:
+        - appName
+        - data
+        - timestamp
+      type: object
+      properties:
+        appName:
+          type: string
+          description: Name of application that has logged error
+          example: business-logic
+        timestamp:
+          type: string
+          description: Timestamp of when error was logged
+          format: date-time
+          example: 2020-03-27T07:38:08Z
+        data:
+          type: string
+          description: Log data of error
+          example: Redis service unreachable
+      description: AppError
