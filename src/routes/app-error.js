@@ -1,4 +1,4 @@
-const { AppError, validate } = require("../models/app-error");
+const {AppError, validate} = require("../models/app-error");
 const express = require("express");
 const validateReq = require("../middleware/validate");
 const router = express.Router();
