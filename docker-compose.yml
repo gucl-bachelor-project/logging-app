@@ -1,13 +1,12 @@
 version: "2.1"
 
 networks:
-  log-app-network:
-    name: log-app-network
+  internal:
 
 services:
-  log-app:
+  logging-app:
     networks:
-      - log-app-network
+      - internal
     depends_on:
       - mongodb
     environment:
@@ -20,4 +19,4 @@ services:
     expose:
       - 27017
     networks:
-      - log-app-network
+      - internal

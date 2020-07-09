@@ -1,7 +1,7 @@
 version: "2.1"
 
 services:
-  log-app:
+  logging-app:
     image: ${LOGGING_APP_REPO_URL}
     ports:
       - 8080:8080

@@ -1,11 +1,15 @@
 version: "2.1"
 
+networks:
+  logging-network: # For external referencing in other subsystems
+    name: logging-network
+
 volumes:
   nodemodules:
     external: true
 
 services:
-  log-app:
+  logging-app:
     build:
       context: .
       dockerfile: Dockerfile-dev
@@ -20,6 +24,9 @@ services:
     volumes:
       - .:/app
       - nodemodules:/app/node_modules
+    networks:
+      - internal
+      - logging-network
 
   mongodb:
     volumes:
