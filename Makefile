@@ -14,7 +14,7 @@ prod-build:
 	docker build -t 468374654130.dkr.ecr.eu-central-1.amazonaws.com/bproject-logging-app:latest -f ./Dockerfile-prod .
 
 prod-push:
-	$$(aws2 ecr get-login --no-include-email --region eu-central-1)
-	aws2 s3 cp docker-compose.yml s3://gkc-bproject-app-docker-composes/logging/docker-compose.yml
-	aws2 s3 cp docker-compose.prod.yml s3://gkc-bproject-app-docker-composes/logging/docker-compose.prod.yml
+	echo $$(aws ecr get-login-password) | docker login --password-stdin --username AWS 468374654130.dkr.ecr.eu-central-1.amazonaws.com
+	aws s3 cp docker-compose.yml s3://gkc-bproject-app-docker-composes/logging/docker-compose.yml
+	aws s3 cp docker-compose.prod.yml s3://gkc-bproject-app-docker-composes/logging/docker-compose.prod.yml
 	docker push 468374654130.dkr.ecr.eu-central-1.amazonaws.com/bproject-logging-app
